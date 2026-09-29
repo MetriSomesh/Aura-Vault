@@ -74,36 +74,36 @@
 ## 🏛️ System Architecture
 
 ```mermaid
-graph TD
-    A[App Entry / _layout.tsx] --> B[Biometric Guard / Auth Provider]
-    B --> C[Bottom Tab Router / (tabs)]
+flowchart TD
+    A["App Entry (_layout.tsx)"] --> B["Biometric Guard / Auth Provider"]
+    B --> C["Bottom Tab Router (tabs)"]
     
-    subgraph Screens
-        C --> D[Vault Dashboard (index.tsx)]
-        C --> E[Holdings Ledger (ledger.tsx)]
-        C --> F[Spot Market (spot.tsx)]
-        C --> G[Security Vault (security.tsx)]
-        C --> H[Add Holding (entry/add.tsx)]
-        C --> I[Holding Details (entry/[id].tsx)]
+    subgraph Screens ["Application Screens"]
+        C --> D["Vault Dashboard (index.tsx)"]
+        C --> E["Holdings Ledger (ledger.tsx)"]
+        C --> F["Spot Market (spot.tsx)"]
+        C --> G["Security Vault (security.tsx)"]
+        C --> H["Add Holding (entry/add.tsx)"]
+        C --> I["Holding Details (entry/[id].tsx)"]
     end
 
-    subgraph State Management [Zustand Store]
-        J[useVaultStore] --> D
+    subgraph StateManagement ["State Management (Zustand Store)"]
+        J["useVaultStore"] --> D
         J --> E
         J --> F
         J --> G
     end
 
-    subgraph Business Logic & Persistence
-        J --> K[Financial Engine: calculations.ts]
-        J --> L[Local SQLite: repository.ts]
-        J --> M[Market Feed: goldApi.ts]
+    subgraph CoreEngine ["Business Logic & Persistence"]
+        J --> K["Financial Engine (calculations.ts)"]
+        J --> L["Local SQLite (repository.ts)"]
+        J --> M["Market Feed (goldApi.ts)"]
     end
 
-    subgraph Hardware Layer
-        N[expo-local-authentication] -. Biometrics .-> B
-        O[expo-image-picker] -. Invoices .-> H
-        P[react-native-safe-area-context] -. Insets .-> C
+    subgraph HardwareLayer ["Hardware Integration"]
+        N["expo-local-authentication"] -. "Biometrics" .-> B
+        O["expo-image-picker"] -. "Invoices" .-> H
+        P["react-native-safe-area-context"] -. "Insets" .-> C
     end
 ```
 
